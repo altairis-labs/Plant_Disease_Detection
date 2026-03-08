@@ -8,11 +8,10 @@
 
 ## 📸 Project Screenshots
 
-> _Add screenshots here_
-
-| Upload & Predict | Grad-CAM Heatmap |
+| Upload & Predict | Region Highlight & Result |
 |------------------|-----------------|
-| ![Upload](gota-add-image-url) | ![Heatmap](gota-add-image-url) |
+| ![Upload](project_imgs/appleblackrotleaf.jpeg) | ![Result](project_imgs/appleablackrotssresult.jpeg)|
+| ![Upload](project_imgs/blueberryhealthleaf.jpeg) | ![Result](project_imgs/blueberryhealthssresult.jpeg) |
 
 ---
 
@@ -64,12 +63,23 @@ Grad-CAM (Gradient-weighted Class Activation Mapping) highlights the regions of 
 ---
 
 ## 📁 Project Structure
+
 ```
-├── plant_app.py          # Streamlit app
-├── best_model.keras      # Trained model weights
-├── requirements.txt      # Dependencies
+├── plant_app.py               # Streamlit app
+├── plant_model_quant.tflite   # Quantized TFLite model (~6.5MB)
+├── requirements.txt           # Dependencies
+├── project_imgs/              # Screenshots
 └── README.md
 ```
+
+---
+
+## 🛠️ Tech Stack
+
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.18-orange?logo=tensorflow)
+![Streamlit](https://img.shields.io/badge/Streamlit-red?logo=streamlit)
+![OpenCV](https://img.shields.io/badge/OpenCV-green?logo=opencv)
 
 ---
 
