@@ -2,7 +2,7 @@
 
 > AI-powered plant disease classifier using CNN + Grad-CAM visualization
 
-🔗 **Live Demo:** `[have to add deployed link here]`
+🔗 **Live Demo:** https://plantdiseasedetection-appy.streamlit.app/
 
 ---
 
