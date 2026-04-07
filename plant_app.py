@@ -202,12 +202,21 @@ def overlay_heatmap(orig_pil: Image.Image, heatmap: np.ndarray, alpha: float = 0
 def draw_detection_boxes(orig_pil: Image.Image, heatmap: np.ndarray, threshold: float = 0.5) -> Image.Image:
     orig_np      = np.array(orig_pil.convert("RGB")).copy()
     hmap_resized = cv2.resize(heatmap, (orig_np.shape[1], orig_np.shape[0]))
-    binary       = (hmap_resized >= threshold).astype(np.uint8) * 255
+
+    # noise floor: only draw boxes on regions that are meaningfully above baseline
+    # prevents shadow/lighting artifacts from generating false boxes
+    noise_floor  = np.percentile(hmap_resized, 75)   # top 25% of activations only
+    effective_thr = max(threshold, noise_floor)
+
+    binary       = (hmap_resized >= effective_thr).astype(np.uint8) * 255
     contours, _  = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     result_bgr   = cv2.cvtColor(orig_np, cv2.COLOR_RGB2BGR)
+    img_area     = orig_np.shape[0] * orig_np.shape[1]
 
     for cnt in contours:
-        if cv2.contourArea(cnt) < 50:
+        area = cv2.contourArea(cnt)
+        # skip tiny noise regions AND boxes that cover most of the image (background noise)
+        if area < 100 or area > img_area * 0.4:
             continue
         x, y, w, h = cv2.boundingRect(cnt)
         cv2.rectangle(result_bgr, (x, y), (x + w, y + h), (0, 255, 80), 2)
@@ -344,8 +353,11 @@ with st.spinner("Analysing leaf..."):
     gradcam_img    = None
     detected_img   = None
     gradcam_reason = None
+    is_healthy     = "healthy" in predicted_label.lower()
 
-    if top_conf < GRADCAM_THR:
+    if is_healthy:
+        gradcam_reason = "healthy"
+    elif top_conf < GRADCAM_THR:
         gradcam_reason = (
             f"Confidence {top_conf:.1%} is below the {GRADCAM_THR:.0%} threshold. "
             "Try a clearer, well-lit, close-up photo of the leaf."
@@ -439,7 +451,18 @@ with tab_detection:
         unsafe_allow_html=True,
     )
 
-    if gradcam_img is not None:
+    if gradcam_reason == "healthy":
+        st.markdown("""
+        <div style="background:#052e16;border:1px solid #22c55e;border-radius:10px;
+                    padding:1.5rem;text-align:center;">
+          <div style="font-size:2.5rem;">✅</div>
+          <div style="font-family:'Syne',sans-serif;color:#4ade80;font-size:1.1rem;
+                      font-weight:700;margin:.5rem 0 .3rem;">Plant looks healthy!</div>
+          <div style="color:#86efac;font-size:0.88rem;">
+            No disease regions to highlight — detection map is only shown for diseased predictions.
+          </div>
+        </div>""", unsafe_allow_html=True)
+    elif gradcam_img is not None:
         col1, col2, col3 = st.columns(3)
         with col1:
             st.markdown("**Original**")
