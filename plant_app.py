@@ -6,8 +6,6 @@ import tensorflow as tf
 import io
 import base64
 from collections import Counter
-import matplotlib
-matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
