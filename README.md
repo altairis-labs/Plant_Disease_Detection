@@ -51,14 +51,6 @@ This app detects plant diseases from leaf images using a Convolutional Neural Ne
 - **Validation Accuracy:** ~89%
 - **Training Dataset:** 70,295 images | Validation: 17,572 images
 
----
-
-## 🔍 How Grad-CAM Works
-
-Grad-CAM (Gradient-weighted Class Activation Mapping) highlights the regions of the image the model focused on to make its prediction.
-
-- 🔴 **Warm colors (red/yellow)** — high activation, features that influenced the prediction
-- 🔵 **Cool colors (blue/purple)** — low activation, regions largely ignored
 
 ---
 
