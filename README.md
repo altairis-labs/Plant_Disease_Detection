@@ -10,8 +10,8 @@
 
 | Upload & Predict | Region Highlight & Result |
 |------------------|-----------------|
-| ![Upload](project_imgs/appleblackrotleaf.jpeg) | ![Result](project_imgs/appleablackrotssresult.jpeg)|
-| ![Upload](project_imgs/blueberryhealthleaf.jpeg) | ![Result](project_imgs/blueberryhealthssresult.jpeg) |
+| ![Upload](project_imgs/appleblackrotleaf.jpeg) | ![Result](project_imgs/appleblackrotresult01.jpeg) ![Result](project_imgs/appleblackrotresult02.jpeg) ![Result](project_imgs/appleblackrotresult03.jpeg) | 
+| ![Upload](project_imgs/blueberryhealthleaf.jpeg) | ![Result](project_imgs/blueberryhealthresult01.jpeg)  ![Result](project_imgs/blueberryhealthresult02.jpeg)  ![Result](project_imgs/blueberryhealthresult03.jpeg) |
 
 ---
 
@@ -66,7 +66,8 @@ Grad-CAM (Gradient-weighted Class Activation Mapping) highlights the regions of 
 
 ```
 ├── plant_app.py               # Streamlit app
-├── plant_model_quant.tflite   # Quantized TFLite model (~6.5MB)
+├── disease_info.py            # Treatment & Care
+├── plant_model_quant.tflite   # Quantized TFLite model
 ├── requirements.txt           # Dependencies
 ├── project_imgs/              # Screenshots
 └── README.md
