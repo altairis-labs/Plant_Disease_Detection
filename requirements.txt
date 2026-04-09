@@ -1,7 +1,6 @@
-streamlit
+streamlit==1.45.0
 tensorflow==2.18.1
-opencv-python-headless
-pillow
-numpy
-matplotlib
-wordcloud
+opencv-python-headless==4.10.0.84
+pillow==10.4.0
+numpy==1.26.4
+matplotlib==3.9.2
